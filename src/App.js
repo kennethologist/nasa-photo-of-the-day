@@ -4,13 +4,15 @@ import "./App.css";
 import PhotosList from './Components/PhotosList'
 
 function App() {
-  useEffect(() => {
-
-  }, []);
+  
 
   const [photos, setPhotos] = useState(null);
-  const [startDate, setStartDate] = useState("2022-02-16");
-  const [endDate, setEndDate] = useState("2022-02-25");
+  const [startDate, setStartDate] = useState("2022-02-10");
+  const [endDate, setEndDate] = useState("2022-02-15");
+
+  useEffect(() => {
+     
+  }, [photos]);
 
   const showPhotos = () => {
     axios.get(`https://api.nasa.gov/planetary/apod?api_key=kjkYsUEUw44ScfCllzKvvHqxXoNjCwbdneAZ1l61&start_date=${startDate}&end_date=${endDate}`)
@@ -22,24 +24,24 @@ function App() {
     });
   }
 
+  const handleShowPhotosClick = () => {
+    showPhotos();
+  }
+
   return (
     <div className="App">
-      <p>
-        Read through the instructions in the README.md file to build your NASA
-        app! Have fun <span role="img" aria-label='go!'>🚀</span>!
-      </p>
       <header>
         <h1><span role="img" aria-label='go!'>🚀</span>Nasa Photos of the Day<span role="img" aria-label='go!'>🚀</span></h1>
       </header>
       <section>
         <div>
-          <input name="startDate" value={startDate} onChange={(e) => {setStartDate(e.target.value)}} placeholder="Start Date (YYYY-MM-DD)"></input>
-          <input name="endDate" value={endDate} onChange={(e) => {setEndDate(e.target.value)}} placeholder="End Date (YYYY-MM-DD)"></input>
-          <button onClick={() => {showPhotos();}}>See Photos</button>
+          <input name="startDate" type="date" value={startDate} onChange={(e) => {setStartDate(e.target.value)}} placeholder="Start Date (YYYY-MM-DD)"></input>
+          <input name="endDate" type="date" value={endDate} onChange={(e) => {setEndDate(e.target.value)}} placeholder="End Date (YYYY-MM-DD)"></input>
+          <button onClick={() => {handleShowPhotosClick();}}>See Photos</button>
         </div>
       </section>
       <section>
-        <PhotosList />
+        <PhotosList photos = {photos}/>
       </section>
     </div>
   );

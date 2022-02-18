@@ -2,9 +2,13 @@ import React from "react";
 import Photo from "./Photo"
 
 function PhotosList(props) {
-    return (
-        <Photo key = {props.id}/>
-    )
+
+    props.photos.map(photo => {
+        return (
+            <Photo key = {photo.id} photo = {photo}/>
+        )
+    })
+    
 }
 
 export default PhotosList;
